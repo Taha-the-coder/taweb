@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tech Whiz Quiz</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        text-align: center;
+        background-color: #f2f2f2;
+    }
+    #quiz-container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+        color: #333;
+    }
+    #question {
+        font-size: 1.2em;
+        margin-bottom: 20px;
+    }
+    .options {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .option {
+        margin: 5px;
+    }
+    button {
+        padding: 10px 20px;
+        font-size: 1em;
+        border: none;
+        background-color: #007bff;
+        color: #fff;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #0056b3;
+    }
+    #result {
+        font-weight: bold;
+        margin-top: 20px;
+    }
+</style>
+</head>
+<body>
+<div id="quiz-container">
+    <h1>Tech Whiz Quiz</h1>
+    <div id="question"></div>
+    <div class="options" id="choices"></div>
+    <div id="result"></div>
+</div>
+
+<script>
+const questions = [
+    {
+        question: "What does HTML stand for?",
+        choices: ["Hyper Text Markup Language", "High Tech Multiplayer Lingo", "Home Tool Markup Language", "Hyperlink and Text Manipulation Language"],
+        answer: "Hyper Text Markup Language"
+    },
+    {
+        question: "Which programming language is used for making web pages interactive?",
+        choices: ["Python", "Java", "JavaScript", "HTML"],
+        answer: "JavaScript"
+    },
+    {
+        question: "What is the main function of a search engine?",
+        choices: ["Send emails", "Play games", "Find and organize information on the internet", "Make phone calls"],
+        answer: "Find and organize information on the internet"
+    },
+    {
+        question: "What is the purpose of a web browser?",
+        choices: ["To write code", "To watch movies", "To view websites", "To cook food"],
+        answer: "To view websites"
+    },
+    {
+        question: "What does 'URL' stand for?",
+        choices: ["Uniform Resource Locator", "Universal Render Language", "User Resource Link", "Uniform Render Locator"],
+        answer: "Uniform Resource Locator"
+    },
+    {
+        question: "Which of the following is not a type of computer?",
+        choices: ["Laptop", "Smartphone", "Refrigerator", "Tablet"],
+        answer: "Refrigerator"
+    },
+    {
+        question: "What does 'HTTP' stand for?",
+        choices: ["Hyper Text Transfer Protocol", "High Tech Transfer Process", "Home Tool Transport Protocol", "Hyperlink and Text Transfer Process"],
+        answer: "Hyper Text Transfer Protocol"
+    },
+    {
+        question: "What is a virus in the context of computers?",
+        choices: ["A type of software used for editing images", "A harmful program that can damage files and software", "A type of computer hardware", "A type of computer game"],
+        answer: "A harmful program that can damage files and software"
+    },
+    {
+        question: "Which company developed the Android operating system?",
+        choices: ["Microsoft", "Apple", "Google", "Samsung"],
+        answer: "Google"
+    },
+    {
+        question: "What does 'CPU' stand for?",
+        choices: ["Central Programming Unit", "Central Processing Unit", "Computer Power Unit", "Central Power Unit"],
+        answer: "Central Processing Unit"
+    }
+];
+
+let currentQuestion = 0;
+let score = 0;
+
+const questionElement = document.getElementById("question");
+const choicesElement = document.getElementById("choices");
+const resultElement = document.getElementById("result");
+
+function showQuestion() {
+    const question = questions[currentQuestion];
+    questionElement.textContent = question.question;
+    choicesElement.innerHTML = "";
+    question.choices.forEach((choice, index) => {
+        const button = document.createElement("button");
+        button.textContent = choice;
+        button.classList.add("option");
+        button.onclick = () => checkAnswer(index);
+        choicesElement.appendChild(button);
+    });
+}
+
+function checkAnswer(answerIndex) {
+    const question = questions[currentQuestion];
+    if (answerIndex === question.choices.indexOf(question.answer)) {
+        score++;
+        resultElement.textContent = "";
+    } else {
+        resultElement.textContent = "";
+    }
+    currentQuestion++;
+    if (currentQuestion < questions.length) {
+        showQuestion();
+    } else {
+        endQuiz();
+    }
+}
+
+function endQuiz() {
+    questionElement.textContent = "";
+    choicesElement.innerHTML = "";
+    resultElement.textContent = `Quiz Over! Your score is ${score}/${questions.length}.`;
+    if (score > 5) {
+        resultElement.innerHTML += "<p>Congratulations! You've won a 20% discount coupon. Use code: TECHWIZ20</p>";
+    }
+}
+
+showQuestion();
+</script>
+</body>
+</html>
